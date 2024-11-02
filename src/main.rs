@@ -1,9 +1,11 @@
 // Takes a random number, splits it, and turns it into an equation
 // If number is odd, decimals are eliminated and the first addend is rounded down while the second is rounded up
 
+use rand::prelude::*;
+
 // PLaceholder number
 fn get_number() -> i32  {
-    let r = 9876235;
+    let r = random::<i32>();
     return r;
 }
 
@@ -11,8 +13,13 @@ fn main() {
 
     let r = get_number();
 
+    let r_len = r.to_string().len();
+
     if r == 0 || r < 0 {
-        println!("This number cannot be split, the result is {}.", r);
+        println!("This number cannot be split because it is negative, the result is {}.", r);
+    }
+    else if r_len > 7 {
+        println!("This number cannot be split because it is too large, the result is {}.", r);
     }
     else if r % 2 == 0 {
         let (a1,a2) = (r/ 2, r/2);
@@ -54,8 +61,6 @@ fn main() {
 
         // Clone v_i32 to get second addend
         let mut v2_i32: Vec<i32> = v_i32.clone();
-
-        let r_len = r.to_string().len();
 
         // Moves backwards until the first decimal number is reached
         // Uses find_dot as the value still points to the first decimal number, unlike index
